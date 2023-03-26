@@ -1,0 +1,27 @@
+.container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background-image: url("../../img/pais.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.button {
+    background-image: url("../../img/Button.png.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 170px;
+    height: 160px;
+    border: none;
+    margin-bottom: 320px;
+
+
+}

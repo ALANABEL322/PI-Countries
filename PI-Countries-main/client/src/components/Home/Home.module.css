@@ -1,0 +1,39 @@
+.container{
+    background-image: url("https://w0.peakpx.com/wallpaper/718/564/HD-wallpaper-world-map-world-countries-continents-map-blue.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+}
+.homeContainer {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 1fr;
+        grid-column-gap: 20px;
+        grid-row-gap: 10px;
+
+        }
+
+.cardCatalogo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    border-top: 5px double blue;
+    border-left: 5px double blue;
+    }
+
+.filterContainer{
+    border-top: 5px double blue;
+    border-right: 5px double blue;    
+}
+
+.positionFixed{
+    position: fixed;
+}
+
+.paginate{
+    text-align: center;
+}
