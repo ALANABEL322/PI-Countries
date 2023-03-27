@@ -1,39 +1,42 @@
-.container{
-    background-image: url("https://w0.peakpx.com/wallpaper/718/564/HD-wallpaper-world-map-world-countries-continents-map-blue.jpg");
+.container {
+    background-image:url("https://images.pexels.com/photos/8828413/pexels-photo-8828413.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-
-}
+    height: 100vh;
+    text-decoration: none;
+   
+   
+ }
 .homeContainer {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 6fr;
         grid-template-rows: 1fr;
-        grid-column-gap: 20px;
+        grid-column-gap: 150px;
         grid-row-gap: 10px;
-
         }
 
 .cardCatalogo {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    border-top: 5px double blue;
-    border-left: 5px double blue;
+    border-left: 15px double blue;
+    margin-top: 40px;
+    z-index: 1;
     }
 
 .filterContainer{
-    border-top: 5px double blue;
+    border-top: 0px double blue;
     border-right: 5px double blue;    
 }
 
 .positionFixed{
     position: fixed;
+    z-index: 100;
 }
 
 .paginate{
     text-align: center;
-}
+} 

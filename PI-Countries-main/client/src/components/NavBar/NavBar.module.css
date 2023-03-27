@@ -1,4 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap');
+ 
+body div{
+  display: flex;
+  flex-direction: column;
+}
+
+.nav{ 
+position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(80, 83, 86);
+  justify-content: space-evenly;
+  height: 2.5em;
+  width: 100%;
+  top: 0%;
+  right: 0%;
+  left: 0%;
+  padding-left: 6em;
+  border-style: solid;
+  border-top: unset;
+  border-left: unset;
+  border-right: unset;
+  border-color: rgb(7, 7, 250);
+  z-index: 100;
+}
+
+.div {
+  color: rgb(66, 16, 166);
+  height: 2em;
+  border-radius: 0em;
+  width: 11em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 0.125em;
+  border-radius: 0.5em;
+}
+
+.link {
+  text-decoration: none;
+}
+
 .img {
-    width: 1em;
+  width: 1em;
   height: 1em;
 }
+
+.logo {
+  position: fixed;
+  left: 0%;
+  padding-left: 4.75em;
+  color: rgb(0, 136, 255);
+  font-family: 'Rajdhani', sans-serif;
+  /* background-color: #00000e; */
+  height: 2em;
+  padding-top: 0.5em;
+}
+
+.button  {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: large;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 3px rgba(54, 5, 248, 0.874);
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button:after {
+ 
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+
+.button:hover {
+  padding-right: 25px;
+}
+
+.button:hover:after {
+  opacity: 1;
+  right: 0;
+ }
