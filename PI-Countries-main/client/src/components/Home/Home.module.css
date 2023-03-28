@@ -1,42 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap");
 .container {
-    background-image:url("https://images.pexels.com/photos/8828413/pexels-photo-8828413.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    text-decoration: none;
-   
-   
- }
+  font-family: "Rajdhani", sans-serif;
+  background-image: url("https://images.pexels.com/photos/8828413/pexels-photo-8828413.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+}
+
 .homeContainer {
-        display: grid;
-        grid-template-columns: 1fr 6fr;
-        grid-template-rows: 1fr;
-        grid-column-gap: 150px;
-        grid-row-gap: 10px;
-        }
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.paginate div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.paginate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.paginate button {
+  font-family: "Rajdhani", sans-serif;
+  background-color: #1e83b3;
+  color: rgb(255, 255, 255);
+}
+
+.paginate a:hover:not(.active) {
+  background-color: #b90b0b;
+}
+
+.lateralBar {
+  font-family: "Rajdhani", sans-serif;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-top: 2.7em;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 13em;
+  height: 100%;
+  background-color: #1e84b383;
+  background-attachment: fixed;
+  align-items: flex-start;
+  gap: 4em;
+  justify-items: stretch;
+  text-align: left;
+  border-style: solid;
+  border-left: unset;
+  border-top: unset;
+  border-bottom: unset;
+  border-right-color: aliceblue;
+  color: aliceblue;
+  padding-top: 1em;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.items {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+}
+
+.order {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input {
+  cursor: pointer;
+}
 
 .cardCatalogo {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-    border-left: 15px double blue;
-    margin-top: 40px;
-    z-index: 1;
-    }
-
-.filterContainer{
-    border-top: 0px double blue;
-    border-right: 5px double blue;    
+  margin-top: 15px;
+  margin-left: 15em;
+  padding-top: 1em;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.1em;
+  padding-bottom: 1em;
 }
-
-.positionFixed{
-    position: fixed;
-    z-index: 100;
-}
-
-.paginate{
-    text-align: center;
-} 

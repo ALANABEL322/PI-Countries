@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap");
+.form {
+  background-color: aliceblue;
+  display: grid;
+  place-content: center;
+  align-content: stretch;
+  justify-content: stretch;
+  gap: 0.5em;
+  width: auto;
+  height: auto;
+  padding: 2em;
+  border-style: solid;
+  border-radius: 1em;
+}
+
+.page {
+  margin-top: 2.75em;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.75em;
+  padding-bottom: 1em;
+  font-family: "Rajdhani", sans-serif;
+  background-image: url("../../img/wallpaperbetter.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.asterisco {
+  color: rgb(168, 226, 251);
+}
+
+.form {
+  background-color: transparent;
+  color: azure;
+  border: none;
+  width: 32%;
+  height: 55%;
+}
+
+.page input {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.834);
+}
+
+.enviar {
+  border-radius: 10px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: large;
+  background-color: rgba(39, 44, 81, 0.995) !important;
+  color: azure;
+}
+
+.select {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.834);
+}
+
+.textDescription {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.834);
+}

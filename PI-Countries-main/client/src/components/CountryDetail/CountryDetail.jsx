@@ -13,11 +13,12 @@ const CountryDetail = () => {
     const detail = useSelector((state)=> state.detail);
     useEffect(()=>{
         dispatch(countriesDetail(params.id));
-    }, [])
+    }, [params.id])
 
 
     return (
         <> 
+        <NavBar/>
         <div className={style.detail}> 
         <div className={style.card}>
             <div className={style.country}>
