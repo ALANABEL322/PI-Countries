@@ -6,6 +6,7 @@ const {
 
 const getCountriesHandler = async (req, res) => {
   const { name } = req.query;
+
   try {
     const countries = name ? await searchByName(name) : await getCountries();
 
@@ -17,6 +18,7 @@ const getCountriesHandler = async (req, res) => {
 
 const getByIdCountriesHandler = async (req, res) => {
   const { id } = req.params;
+
   try {
     const countryById = await searchById(id);
     res.status(200).json(countryById);

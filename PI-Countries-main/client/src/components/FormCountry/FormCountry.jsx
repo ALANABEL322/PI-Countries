@@ -24,19 +24,19 @@ const FormCountry = () => {
     }
   };
 
-//   const validationContinent = (e) => {
-//     if (!continent(e.target.value)) {
-//       error.continent = "enter a continent";
-//     } else {
-//       error.continent = null;
-//     }
-//   };
+  //   const validationContinent = (e) => {
+  //     if (!continent(e.target.value)) {
+  //       error.continent = "enter a continent";
+  //     } else {
+  //       error.continent = null;
+  //     }
+  //   };
 
-//   const validationActvity = () => {n
-//     if (formActivity.length === 1) {
-//       error.activity = "The activity must have at least one activity.";
-//     }
-//   };
+  //   const validationActvity = () => {n
+  //     if (formActivity.length === 1) {
+  //       error.activity = "The activity must have at least one activity.";
+  //     }
+  //   };
 
   useEffect(() => {
     dispatch(getActivity());
@@ -87,7 +87,7 @@ const FormCountry = () => {
     setForm({
       ...form,
       area: e.target.value,
-    })
+    });
   };
 
   const handleActivity = (e) => {
@@ -122,7 +122,7 @@ const FormCountry = () => {
       <div className={styles.page}>
         <form onSubmit={(e) => handleOnSubmit(e)} className={styles.form}>
           <label htmlFor="name">
-           <strong> Name</strong> <span className={styles.asterisco}>*</span>
+            <strong> Name</strong> <span className={styles.asterisco}>*</span>
           </label>
           {error.name && <span className={styles.asterisco}>{error.name}</span>}
           <input type="text" id="name" onChange={(e) => handleName(e)} />
@@ -133,14 +133,11 @@ const FormCountry = () => {
           {error.capital && (
             <span className={styles.asterisco}>{error.capital}</span>
           )}
-          <input
-            type="text"
-            id="capital"
-            onChange={(e) => handleCapital(e)}
-          />
+          <input type="text" id="capital" onChange={(e) => handleCapital(e)} />
 
           <label htmlFor="subregion">
-            <strong>Subregion</strong><span className={styles.asterisco}>*</span>
+            <strong>Subregion</strong>
+            <span className={styles.asterisco}>*</span>
           </label>
           {error.subregion && (
             <span className={styles.asterisco}>{error.subregion}</span>
@@ -151,16 +148,14 @@ const FormCountry = () => {
             onChange={(e) => handleSubregion(e)}
           />
 
-          <label htmlFor="flag_image"><strong>Flag Image</strong></label>
-          <input
-            type="text"
-            id="image"
-            onChange={(e) => handleFlagImage(e)}
-          />
-          <label htmlFor="area"><strong>Area</strong></label>
-          {error.area && (
-            <span className={styles.asterisco}>{error.area}</span>
-          )}
+          <label htmlFor="flag_image">
+            <strong>Flag Image</strong>
+          </label>
+          <input type="text" id="image" onChange={(e) => handleFlagImage(e)} />
+          <label htmlFor="area">
+            <strong>Area</strong>
+          </label>
+          {error.area && <span className={styles.asterisco}>{error.area}</span>}
           <input
             type="number"
             id="area"
@@ -168,8 +163,9 @@ const FormCountry = () => {
             placeholder="area..."
           />
 
-          <label htmlFor="activiity"> 
-           <strong>Activity </strong><span className={styles.asterisco}>*</span>
+          <label htmlFor="activiity">
+            <strong>Activity </strong>
+            <span className={styles.asterisco}>*</span>
           </label>
           {error.activity && (
             <span className={styles.asterisco}> {error.activity} </span>
@@ -197,7 +193,8 @@ const FormCountry = () => {
               </span>
             ))}
           <label htmlFor="population">
-           <strong> Population</strong>  <span className={styles.asterisco}>*</span>
+            <strong> Population</strong>{" "}
+            <span className={styles.asterisco}>*</span>
           </label>
           {error.population && (
             <span className={styles.asterisco}>{error.population}</span>
@@ -213,7 +210,7 @@ const FormCountry = () => {
           ></input>
           <span className={styles.asterisco}>{error.error}</span>
           {!error.name &&
-            !error.area&&
+            !error.area &&
             !error.population &&
             !error.capital &&
             !error.activities && (

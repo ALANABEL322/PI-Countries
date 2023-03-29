@@ -1,45 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap");
 .container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    background: url('../../img//wallpaperbetter.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: 'Rajdhani', sans-serif;
-    height: 100vh;
-    color: whitesmoke
-       
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background: url("../../img//wallpaperbetter.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Rajdhani", sans-serif;
+  height: 100vh;
+  color: whitesmoke;
 }
 
 .button {
-  background-color: #752de7; 
-   border: none; 
+  background-color: #752de7;
+  border: none;
   color: white;
-   padding: 15px 32px; 
-  font-family: 'Rajdhani', sans-serif;
-   text-decoration: none; 
-   font-size: 16px; 
+  padding: 15px 32px;
+  font-family: "Rajdhani", sans-serif;
+  text-decoration: none;
+  font-size: 16px;
   display: block;
   /* margin: auto; */
   margin-left: 920px;
-  margin-right: 200px;  
+  margin-right: 200px;
   border-radius: 6px;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s; 
+  -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   text-align: center;
 }
 
 .button:hover {
-    color: rgb(255, 255, 255);
-    padding-left: 0px;
-    transition: all 1s;
-    box-shadow: 0 12px 16px 0 rgba(64, 5, 119, 0.575),0 17px 50px 0 rgb(81, 9, 122);
+  color: rgb(255, 255, 255);
+  padding-left: 0px;
+  transition: all 1s;
+  box-shadow: 0 12px 16px 0 rgba(64, 5, 119, 0.575),
+    0 17px 50px 0 rgb(81, 9, 122);
 }
 
 .text {
-    margin-left: 20px;
-    width: 40%;
+  margin-left: 20px;
+  width: 40%;
 }

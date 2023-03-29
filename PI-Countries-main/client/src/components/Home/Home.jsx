@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from "react";
 import NavBar from "../NavBar/NavBar";
 import {
-  //   getAllCountries,
+  getAllCountries,
   findCountries,
-  //   orderByName,
+  orderByName,
   orderByPopulation,
 } from "../../redux/actions/actions";
 import FilterActivity from "../FilterActivity/FilterActivity";
@@ -13,14 +13,16 @@ import styles from "./Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
-  const [countryList, setCountryList] = useState([]);
   const dispatch = useDispatch();
-  const [orderName, setOrderName] = useState("");
-  const [orderPopulation, setOrderPopulation] = useState("");
+  const [orderName, setOrderName] = useState(null);
+  const [orderPopulation, setOrderPopulation] = useState(null);
+  const countriesAux = useSelector((state) => state.countriesAux);
   const countries = useSelector((state) => state.countries);
-  const pageNamber = Math.ceil(countries.length / 10);
+  const pageNamber = Math.ceil(countriesAux.length / 10);
   useEffect(() => {
-    setCountryList(countries);
+    if (countries.length === 0) {
+      dispatch(getAllCountries());
+    }
   }, [countries]);
   const [page, setPage] = useState(0);
 
@@ -34,14 +36,9 @@ const Home = () => {
     setPage(nextPage);
   };
   const changeOrderName = (order) => {
-    if (order === "az") {
-      const newArray = countryList.sort((a, b) => a.name.localeCompare(b.name));
-      setCountryList(newArray);
-    }
-    if (order === "za") {
-      const newArray = countryList.sort((a, b) => a.name.localeCompare(b.name));
-      setCountryList(newArray.reverse());
-    }
+    setOrderName(order);
+    dispatch(orderByName(order));
+    setOrderPopulation(null);
     setPage(0);
   };
 
@@ -50,9 +47,16 @@ const Home = () => {
     setPage(0);
   };
 
-  const handleOrderPopulation = (e) => {
-    setOrderPopulation(e.target.id);
-    dispatch(orderByPopulation(e.target.id));
+  const handleOrderPopulation = (order) => {
+    setOrderPopulation(order);
+    setOrderName(null);
+    dispatch(orderByPopulation(order));
+    setPage(0);
+  };
+  const resetFilter = () => {
+    setPage(0);
+    setOrderName(null);
+    setOrderPopulation(null);
   };
 
   return (
@@ -75,7 +79,7 @@ const Home = () => {
             <div className={styles.filters}>
               <div className={styles.filtersTitle}>Filters</div>
               <FilterActivity setPage={setPage} />
-              <FilterContinent setPage={setPage} />
+              <FilterContinent resetFilter={resetFilter} />
             </div>
             <div className={styles.items}>
               <div className={styles.titles}>Orders</div>
@@ -87,7 +91,7 @@ const Home = () => {
                     name="orderName"
                     id="az"
                     checked={orderName === "az"}
-                    onChange={(e) => changeOrderName(e)}
+                    onChange={() => changeOrderName("az")}
                   />
                   A - Z
                 </label>
@@ -97,7 +101,7 @@ const Home = () => {
                     name="orderName"
                     id="za"
                     checked={orderName === "za"}
-                    onChange={(e) => changeOrderName(e)}
+                    onChange={() => changeOrderName("za")}
                   />
                   Z - A
                 </label>
@@ -109,8 +113,8 @@ const Home = () => {
                     type="radio"
                     id="up"
                     name="orderPopulation"
-                    checked={orderPopulation === "up"}
-                    onChange={(e) => handleOrderPopulation(e)}
+                    checked={orderPopulation === "ascending"}
+                    onChange={() => handleOrderPopulation("ascending")}
                   />
                   Ascending
                 </label>
@@ -119,8 +123,8 @@ const Home = () => {
                     type="radio"
                     id="down"
                     name="orderPopulation"
-                    checked={orderPopulation === "down"}
-                    onChange={(e) => handleOrderPopulation(e)}
+                    checked={orderPopulation === "descending"}
+                    onChange={() => handleOrderPopulation("descending")}
                   />
                   Descending
                 </label>
@@ -134,9 +138,10 @@ const Home = () => {
         </div>
         <div>
           <div className={styles.cardCatalogo}>
-            {countryList.slice(page * 10, page * 10 + 10).map((country) => {
-              return <CardCountry country={country} />;
-            })}
+            {countriesAux.length &&
+              countriesAux?.slice(page * 10, page * 10 + 10).map((country) => {
+                return <CardCountry country={country} />;
+              })}
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ export const getAllCountries = () => {
   return async function (dispatch) {
     const json = await axios.get(`${apiUrl}/countries`);
     const data = json.data;
+    console.log({ data });
     return dispatch({
       type: GET_ALL_COUNTRIES,
       payload: data,
@@ -30,13 +31,13 @@ export const findCountries = (payload) => {
       const data = json.data;
       return dispatch({ type: FIND_COUNTRIES, payload: data }); //VA A HACER UN DISPATCH DE UN OBJETO DE UNA PROPIEDAD OBLIGATORIA "TYPE" DE GET CHARACTERS POR QUE TE QUERES TRAER A TODOS LOS PERSONAJES. TAMBIEN SE DIFERENCIAN AXIOS DE FETCH. CUANDO NOSOTROS TENEMOS AXIOS TENEMOS A "RESPONSE" UN OBJETO CON MUCHA INFO DE TODO ESO NOS QUEDMAOS CON DATA.
     } catch (error) {
-      return alert(error.response.data);
+      return dispatch({ type: FIND_COUNTRIES, payload: [] });
     }
   };
 };
-export const countriesDetail = (id) => {
+export const countryDetail = (id) => {
   return async function (dispatch) {
-    const json = await axios.get(`${apiUrl}/Countries/${id}`);
+    const json = await axios.get(`${apiUrl}/countries/${id}`);
     const data = json.data;
     return dispatch({ type: COUNTRIES_DETAIL, payload: data });
   };

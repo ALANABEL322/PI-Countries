@@ -15,7 +15,6 @@ const initialState = {
   activities: [],
   allActivities: [],
   detail: {},
-  detailAux: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,11 +26,60 @@ const reducer = (state = initialState, action) => {
         countries: action.payload, //guardamos los paises en allCountries
         countriesAux: action.payload, //guardamos los paises en countries
       };
+    case ORDER_BY_NAME:
+      let arrayByName = [];
+      if (action.payload === "az") {
+        arrayByName = state.countriesAux.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+      }
+      if (action.payload === "za") {
+        arrayByName = state.countriesAux
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .reverse();
+      }
+      return {
+        ...state,
+        countriesAux: arrayByName,
+      };
+    case ORDER_BY_POPULATION:
+      let arrayByPopulation = [];
+      if (action.payload === "ascending") {
+        arrayByPopulation = state.countriesAux.sort(
+          (countryA, countryB) => countryA.population - countryB.population
+        );
+      }
+      if (action.payload === "descending") {
+        arrayByPopulation = state.countriesAux.sort(
+          (countryA, countryB) => countryB.population - countryA.population
+        );
+      }
+      return {
+        ...state,
+        countriesAux: arrayByPopulation,
+      };
+
+    case FILTER_BY_CONTINENT:
+      let arrayByContinent = state.countries.filter((country) =>
+        action.payload === "All"
+          ? true
+          : country.continent.includes(action.payload)
+      );
+      return {
+        ...state,
+        countriesAux: arrayByContinent,
+      };
 
     case FIND_COUNTRIES: //filtramos los paises por nombre
       return {
         ...state,
-        countries: action.payload,
+        countriesAux: action.payload,
+      };
+
+    case COUNTRIES_DETAIL:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case GET_ACTIVITY:
@@ -39,12 +87,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         activities: action.payload,
         allActivities: action.payload,
-      };
-
-    case COUNTRIES_DETAIL:
-      return {
-        ...state,
-        details: action.payload,
       };
 
     case FILTER_BY_ACTIVITY:
@@ -71,72 +113,6 @@ const reducer = (state = initialState, action) => {
         };
       }
 
-    case FILTER_BY_CONTINENT:
-      const allCountries = state.countries;
-      const continentFiltered =
-        action.payload === "All"
-          ? allCountries //filtramos los paises por continente
-          : allCountries.filter((el) => el.continent === action.payload); //si el continente es 'All', devolvemos todos los paises
-      return {
-        // usando el array allCountries y filter para filtrarlos
-        ...state,
-        countries: continentFiltered,
-      };
-
-    case ORDER_BY_NAME:
-      action.payload === "asc"
-        ? state.countries.sort(function (a, b) {
-            //ordenamos los paises por nombre
-            if (a.name > b.name) {
-              //si el payload es 'asc', ordenamos de la A a la Z
-              return 1; //si el payload es 'desc', ordenamos de la Z a la A
-            } //usando sort para ordenarlos, que funciona como un if
-            if (b.name > a.name) {
-              //si a.name es mayor que b.name, retornamos 1, que seria que a.name va despues que b.name
-              // 1 es la posicion de a.name en el array ordenado
-              return -1; //si b.name es mayor que a.name, retornamos -1
-            } //si a.name es igual que b.name, retornamos 0
-            return 0; //
-          })
-        : state.countries.sort(function (a, b) {
-            if (a.name > b.name) {
-              return -1;
-            }
-            if (b.name > a.name) {
-              return 1;
-            }
-            return 0;
-          });
-      return {
-        ...state,
-        countries: state.countries,
-      };
-
-    case ORDER_BY_POPULATION:
-      action.payload === "min"
-        ? state.countries.sort(function (a, b) {
-            //ordenamos los paises por poblacion
-            if (a.population > b.population) {
-              return 1;
-            }
-            if (b.population > a.population) {
-              return -1;
-            }
-            return 0;
-          })
-        : state.countries.sort(function (a, b) {
-            if (a.population > b.population) {
-              return -1;
-            }
-            if (b.population > a.population) {
-              return 1;
-            }
-            return 0;
-          });
-      return {
-        ...state,
-        countries: state.countries,
-      };
     default:
       return state;
   }

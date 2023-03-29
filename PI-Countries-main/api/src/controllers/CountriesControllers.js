@@ -1,14 +1,18 @@
 const validation = require("../validation/validation");
-const seedDB = require("../seedDB");
+const { getCountriesApi } = require("../seedDB");
 const { Country, Activity } = require("../db");
 const { Op } = require("sequelize");
 
 async function getCountries() {
   try {
-    let database = await Country.findAll();
+    let database = await Country.findAll({
+      include: {
+        model: Activity,
+      },
+    });
 
     if (database.length === 0) {
-      database = await seedDB();
+      database = await getCountriesApi();
 
       return await Country.findAll({
         include: {
@@ -16,14 +20,7 @@ async function getCountries() {
         },
       });
     } else {
-      return Country.findAll({
-        include: {
-          model: Activity,
-          through: {
-            attributes: [],
-          },
-        },
-      });
+      return database;
     }
   } catch (error) {
     console.error(error);
@@ -34,19 +31,17 @@ const searchById = async (idCountry) => {
   const countriesById = await Country.findByPk(idCountry, {
     include: {
       model: Activity,
-      through: {
-        atributes: [],
-      },
     },
   });
   return countriesById;
 };
 
 const searchByName = async (name) => {
-  // const paisespornombre = paisesporBD.filter(country=>countries.name ==name)
   const countriesName = await Country.findAll({
-    // countryName = await Country.findAll ({where: {name: name}});
-    where: { name: { [Op.iLike]: `${name}%` } },
+    where: { name: { [Op.iLike]: `%${name}%` } },
+    include: {
+      model: Activity,
+    },
   });
   if (countriesName.length) return countriesName;
   throw Error("The country was not found");
