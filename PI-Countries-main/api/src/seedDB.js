@@ -5,9 +5,7 @@ const { Country } = require("./db");
 const getCountriesApi = async () => {
   const URL = "https://restcountries.com/v3.1/all";
   const countriesApi = await axios.get(URL);
-  console.log(countriesApi?.data);
   const dataApi = countriesApi?.data?.map((e) => {
-   
     return {
       id: e.cca3,
       name: e.name.common,

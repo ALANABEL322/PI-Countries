@@ -19,6 +19,7 @@ const Home = () => {
   const countriesAux = useSelector((state) => state.countriesAux);
   const countries = useSelector((state) => state.countries);
   const pageNamber = Math.ceil(countriesAux.length / 10);
+
   useEffect(() => {
     if (countries.length === 0) {
       dispatch(getAllCountries());
@@ -78,7 +79,7 @@ const Home = () => {
 
             <div className={styles.filters}>
               <div className={styles.filtersTitle}>Filters</div>
-              <FilterActivity setPage={setPage} />
+              <FilterActivity setPage={setPage} resetFilter={resetFilter} />
               <FilterContinent resetFilter={resetFilter} />
             </div>
             <div className={styles.items}>

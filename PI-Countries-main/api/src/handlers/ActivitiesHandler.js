@@ -19,7 +19,6 @@ const createActivitiesHandler = async (req, res) => {
     res.status(200).send("Activity created successfully");
   } catch (error) {
     res.status(404).send(error.message);
-    console.log(error);
   }
 };
 

@@ -13,7 +13,12 @@ const createActivities = async (
     duration,
     season,
   });
-  await newActivity.addCountry(countries);
+  await Promise.all(
+    countries.map(async (country) => {
+      return await newActivity.addCountry(country);
+    })
+  );
+
   return newActivity;
 };
 

@@ -1,6 +1,6 @@
 import {
   GET_ALL_COUNTRIES,
-  GET_ACTIVITY,
+  GET_ALL_ACTIVITY,
   FIND_COUNTRIES,
   COUNTRIES_DETAIL,
   FILTER_BY_CONTINENT,
@@ -42,22 +42,22 @@ export const countryDetail = (id) => {
     return dispatch({ type: COUNTRIES_DETAIL, payload: data });
   };
 };
-export const getActivity = () => {
+export const getAllActivity = () => {
   return async function (dispatch) {
-    const json = await axios.get(`${apiUrl}/Activity`);
+    const json = await axios.get(`${apiUrl}/activities`);
     const data = json.data;
-    return dispatch({ type: GET_ACTIVITY, payload: data });
+    return dispatch({ type: GET_ALL_ACTIVITY, payload: data });
   };
 };
 
 export const postActivity = (form) => {
   return async function (dispatch) {
     try {
-      const data = await axios.post(`${apiUrl}/Activity`, form);
-      axios
-        .get("/Activity")
-        .then((json) => json.data)
-        .then((data) => dispatch({ type: GET_ACTIVITY, payload: data }));
+      const data = await axios.post(`${apiUrl}/activities`, form);
+      // axios
+      //   .get(`${apiUrl}/activities`)
+      //   .then((json) => json.data)
+      //   .then((data) => dispatch({ type: GET_ACTIVITY, payload: data }));
       const data_01 = data;
       return alert(data_01.data);
     } catch (error) {

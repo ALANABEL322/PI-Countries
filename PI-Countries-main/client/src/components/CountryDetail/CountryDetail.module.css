@@ -1,0 +1,21 @@
+.cardActivity{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 10em;
+    height: 10em;
+    padding: 50px 30px 50px -10em;
+    background: rgba(128, 128, 128, 0.663);
+    border-radius: 24px;
+    background-image: url(https://img.freepik.com/foto-gratis/anuncios-sociales-textura-negra-reluciente_53876-160571.jpg);
+    color: #fbff00;
+    text-shadow: 0 -1px 4px #FFF, 0 -2px 10px #ff0, 0 -10px 20px #ff8000, 0 -18px 40px #F00;
+    padding: 10em;
+    font-weight: bold;
+}
+
+.cardActivity h2{
+    width: 6em;
+    font-weight: bold;
+}

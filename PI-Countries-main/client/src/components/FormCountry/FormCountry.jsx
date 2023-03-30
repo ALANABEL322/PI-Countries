@@ -1,119 +1,103 @@
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getActivity, postActivity } from "../../redux/actions/actions";
+import { getAllCountries, postActivity } from "../../redux/actions/actions";
 import NavBar from "../NavBar/NavBar";
 import styles from "./FormCountry.module.css";
+import axios from "axios";
+const apiUrl = "http://localhost:3001";
 
 const FormCountry = () => {
   const history = useNavigate();
 
-  const activities = useSelector((state) => state.activities);
+  const countries = useSelector((state) => state.countries);
   const dispatch = useDispatch();
 
-  const [formActivity, setActivity] = useState([]);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({ countries: [] });
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState({});
 
-  const validationName = (e) => {
-    if (e.target.value.length > 250) {
-      error.name = "The name characters are way to many";
-    } else {
-      error.name = null;
-    }
-  };
-
-  //   const validationContinent = (e) => {
-  //     if (!continent(e.target.value)) {
-  //       error.continent = "enter a continent";
-  //     } else {
-  //       error.continent = null;
-  //     }
-  //   };
-
-  //   const validationActvity = () => {n
-  //     if (formActivity.length === 1) {
-  //       error.activity = "The activity must have at least one activity.";
-  //     }
-  //   };
-
   useEffect(() => {
-    dispatch(getActivity());
+    dispatch(getAllCountries());
   }, [dispatch]);
 
   const handleOnSubmit = (e) => {
+    console.log(form);
     e.preventDefault();
+    if (!form.name) {
+      setError({ ...error, name: "Please enter a name" });
+      return;
+    }
+
+    if (!form.difficulty) {
+      setError({ ...error, difficulty: "place enter a difficulty" });
+      return;
+    }
+    if (!form.season) {
+      setError({ ...error, season: "place enter a season" });
+      return;
+    }
+    if (!form.duration) {
+      setError({ ...error, duration: "place enter a duration" });
+      return;
+    }
+    if (!form.countries.length) {
+      setError({ ...error, countries: "place enter a countries" });
+      return;
+    }
     dispatch(postActivity(form));
-    return history(`/home`);
+    // return history(`/home`);
   };
 
   const handleName = (e) => {
-    e.preventDefault();
-    validationName(e);
+    setError({ ...error, name: null });
+
     setForm({
       ...form,
       name: e.target.value,
     });
   };
 
-  const handleCapital = (e) => {
-    e.preventDefault();
+  const handleDifficulty = (e) => {
+    setError({ ...error, difficulty: null });
     setForm({
       ...form,
-      capital: e.target.value,
+      difficulty: e.target.value,
     });
   };
 
-  const handleSubregion = (e) => {
-    e.preventDefault();
+  const handleSeason = (e) => {
+    setError({ ...error, season: null });
     setForm({
       ...form,
-      subregion: e.target.value,
+      season: e.target.value,
     });
   };
 
-  const handleFlagImage = (e) => {
-    e.preventDefault();
+  const handleDuration = (e) => {
+    setError({ ...error, duration: null });
     setForm({
       ...form,
-      flag_image: e.target.value,
-    });
-  };
-
-  const handleArea = (e) => {
-    e.preventDefault();
-    validationName(e);
-    setForm({
-      ...form,
-      area: e.target.value,
+      duration: Number(e.target.value),
     });
   };
 
   const handleActivity = (e) => {
-    e.preventDefault();
-    error.activity = null;
-    if (e.target.value !== "select_activity") {
-      formActivity.push(e.target.value);
+    setError({ ...error, countries: null });
+    if (e.target.value) {
       setForm({
         ...form,
-        activity: formActivity,
+        countries: form.countries.concat(e.target.value),
       });
     }
   };
 
-  const handlePopulation = (e) => {
-    e.preventDefault();
-    setForm({
-      ...form,
-      population: e.target.value,
-    });
-  };
-
   const handleActivityX = (e) => {
-    e.preventDefault();
-    setActivity(formActivity.filter((activity) => activity !== e.target.value));
-    // validationActvity();
+    let newArrayCountries = form.countries.filter(
+      (activity) => activity !== e.target.value
+    );
+
+    setForm({ ...form, countries: newArrayCountries });
   };
 
   return (
@@ -127,64 +111,82 @@ const FormCountry = () => {
           {error.name && <span className={styles.asterisco}>{error.name}</span>}
           <input type="text" id="name" onChange={(e) => handleName(e)} />
 
-          <label htmlFor="Capital">
-            <strong>Capital</strong> <span className={styles.asterisco}>*</span>
-          </label>
-          {error.capital && (
-            <span className={styles.asterisco}>{error.capital}</span>
-          )}
-          <input type="text" id="capital" onChange={(e) => handleCapital(e)} />
-
-          <label htmlFor="subregion">
-            <strong>Subregion</strong>
+          <label htmlFor="Difficulty">
+            <strong>Difficulty</strong>{" "}
             <span className={styles.asterisco}>*</span>
           </label>
-          {error.subregion && (
-            <span className={styles.asterisco}>{error.subregion}</span>
-          )}
-          <input
-            type="text"
-            id="subregion"
-            onChange={(e) => handleSubregion(e)}
-          />
-
-          <label htmlFor="flag_image">
-            <strong>Flag Image</strong>
-          </label>
-          <input type="text" id="image" onChange={(e) => handleFlagImage(e)} />
-          <label htmlFor="area">
-            <strong>Area</strong>
-          </label>
-          {error.area && <span className={styles.asterisco}>{error.area}</span>}
-          <input
-            type="number"
-            id="area"
-            onChange={(e) => handleArea(e)}
-            placeholder="area..."
-          />
-
-          <label htmlFor="activiity">
-            <strong>Activity </strong>
-            <span className={styles.asterisco}>*</span>
-          </label>
-          {error.activity && (
-            <span className={styles.asterisco}> {error.activity} </span>
+          {error.difficulty && (
+            <span className={styles.asterisco}>{error.difficulty}</span>
           )}
           <select
             className={styles.select}
-            id="activity"
+            id="dificulty"
+            onChange={(e) => handleDifficulty(e)}
+          >
+            <option value="">Select Difficulty..</option>
+            {[1, 2, 3, 4, 5].map((seans) => (
+              <option key={seans} value={seans}>
+                {seans}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="season">
+            <strong>Season</strong>
+            <span className={styles.asterisco}>*</span>
+          </label>
+          <select
+            className={styles.select}
+            id="season"
+            onChange={(e) => handleSeason(e)}
+          >
+            <option value="">Select Season...</option>
+            {["summer", "autumn", "winter", "spring"].map((seans) => (
+              <option key={seans} value={seans}>
+                {seans}
+              </option>
+            ))}
+          </select>
+          {error.season && (
+            <span className={styles.asterisco}>{error.season}</span>
+          )}
+
+          <label htmlFor="duration">
+            <strong>Duration</strong>
+            <small> (*Days)</small>
+          </label>
+          {error.duration && (
+            <span className={styles.asterisco}>{error.duration}</span>
+          )}
+          <input
+            type="number"
+            id="duration"
+            onChange={(e) => handleDuration(e)}
+            placeholder="duration..."
+          />
+
+          <label htmlFor="activiity">
+            <strong>Countries </strong>
+            <span className={styles.asterisco}>*</span>
+          </label>
+          {error.countries && (
+            <span className={styles.asterisco}> {error.countries} </span>
+          )}
+          <select
+            className={styles.select}
+            id="countries"
             onChange={(e) => handleActivity(e)}
           >
-            <option value="select_activity">Select activities...</option>
-            {activities.length > 0 &&
-              activities.map((activity) => (
-                <option key={activity.name} value={activity.name}>
-                  {activity.name}
+            <option value="">Select countries...</option>
+            {countries.length > 0 &&
+              countries.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.name}
                 </option>
               ))}
           </select>
-          {formActivity.length > 0 &&
-            formActivity.map((activiity) => (
+          {form?.countries?.length > 0 &&
+            form.countries.map((activiity) => (
               <span key={activiity}>
                 · {activiity}
                 <button value={activiity} onClick={(e) => handleActivityX(e)}>
@@ -192,34 +194,14 @@ const FormCountry = () => {
                 </button>
               </span>
             ))}
-          <label htmlFor="population">
-            <strong> Population</strong>{" "}
-            <span className={styles.asterisco}>*</span>
-          </label>
-          {error.population && (
-            <span className={styles.asterisco}>{error.population}</span>
-          )}
-          <input
-            className={styles.textDescription}
-            type="number"
-            id="population"
-            placeholder="population..."
-            onChange={(e) => handlePopulation(e)}
-            rows="20"
-            cols="30"
-          ></input>
+
           <span className={styles.asterisco}>{error.error}</span>
-          {!error.name &&
-            !error.area &&
-            !error.population &&
-            !error.capital &&
-            !error.activities && (
-              <input
-                className={styles.enviar}
-                type="submit"
-                style={{ cursor: "pointer" }}
-              />
-            )}
+
+          <input
+            className={styles.enviar}
+            type="submit"
+            style={{ cursor: "pointer" }}
+          />
         </form>
       </div>
     </>

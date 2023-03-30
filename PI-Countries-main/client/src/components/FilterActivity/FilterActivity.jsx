@@ -1,31 +1,29 @@
 import { React, useState, useEffect } from "react";
-import { getActivity, filterByActivity } from "../../redux/actions/actions";
+import { getAllActivity, filterByActivity } from "../../redux/actions/actions";
 import style from "./FilterActivity.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-const FilterActivity = ({ setPage }) => {
-  const errorFilter = useSelector((state) => state.errorFilter);
-  const activity = useSelector((state) => state.activity);
+const FilterActivity = ({ setPage, resetFilter }) => {
+  const allActivities = useSelector((state) => state.allActivities);
   const dispatch = useDispatch();
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    dispatch(getActivity());
-  }, [dispatch]);
+    dispatch(getAllActivity());
+  }, [allActivities]);
 
   const handleChange = (e) => {
-    e.preventDefault();
     if (!filters.includes(e.target.value)) {
-      filters.push(e.target.value);
-      dispatch(filterByActivity(e.target.value));
-      setPage(1);
+      setPage(0);
+      setFilters(filters.concat(e.target.value));
+      dispatch(filterByActivity(filters.concat(e.target.value)));
     }
   };
 
   const handleClick = (e) => {
-    e.preventDefault();
     setFilters([]);
-    dispatch(filterByActivity());
+    resetFilter();
+    dispatch(filterByActivity([]));
   };
 
   return (
@@ -34,14 +32,13 @@ const FilterActivity = ({ setPage }) => {
         {" "}
         Activities:
         <br />
-        {errorFilter && <span>No activities</span>}
         <select
           id="activities"
           onChange={(e) => handleChange(e)}
           className={style.activities}
         >
           <option>All</option>
-          {activity?.map((act) => (
+          {allActivities?.map((act) => (
             <option value={act.name} key={act.id}>
               {act.name}
             </option>
@@ -55,7 +52,7 @@ const FilterActivity = ({ setPage }) => {
         {filters.length > 0 &&
           filters?.map((filter) => (
             <span key={filter}>
-              . {filter} <br />
+              {filter} <br />
             </span>
           ))}
       </label>

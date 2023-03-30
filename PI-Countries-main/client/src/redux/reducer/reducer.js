@@ -1,7 +1,7 @@
 import {
   GET_ALL_COUNTRIES,
   FIND_COUNTRIES,
-  GET_ACTIVITY,
+  GET_ALL_ACTIVITY,
   COUNTRIES_DETAIL,
   FILTER_BY_CONTINENT,
   FILTER_BY_ACTIVITY,
@@ -12,7 +12,6 @@ import {
 const initialState = {
   countries: [],
   countriesAux: [],
-  activities: [],
   allActivities: [],
   detail: {},
 };
@@ -82,36 +81,31 @@ const reducer = (state = initialState, action) => {
         detail: action.payload,
       };
 
-    case GET_ACTIVITY:
+    case GET_ALL_ACTIVITY:
       return {
         ...state,
-        activities: action.payload,
         allActivities: action.payload,
       };
 
     case FILTER_BY_ACTIVITY:
-      const countries2 = state.countries;
-      // filtramos los paises por actividad
-      //usando filter para filtrar los paises que tengan la actividad que buscamos
-      // (c) es cada pais del array countries2
-      // (c) es cada actividad del array activities
-      // retornamos los paises que tengan la actividad que buscamos
-      // con find buscamos la actividad que buscamos en el array activities
-      // si c.name es igual a la actividad que buscamos, retornamos el pais
-      const countriesFiltered = countries2.filter((c) => {
-        return c.activities?.find((c) => {
-          return c.name === action.payload;
-        });
-      });
-
-      if (action.payload === "All") {
-        return { ...state, countries: state.countries };
-      } else {
-        return {
-          ...state,
-          countries: countriesFiltered,
-        };
-      }
+      const countriesByActivities = !action.payload.length
+        ? state.countries
+        : state.countriesAux.filter((country) => {
+            let includesAllActivities = true;
+            let countryActivities = country.Activities.map(
+              (activity) => activity.name
+            );
+            action.payload.forEach((activity) => {
+              if (!countryActivities.includes(activity)) {
+                includesAllActivities = false;
+              }
+            });
+            return includesAllActivities;
+          });
+      return {
+        ...state,
+        countriesAux: countriesByActivities,
+      };
 
     default:
       return state;
