@@ -14,8 +14,7 @@ const CountryDetail = () => {
   }, [params]);
 
   return (
-    <>
-      {console.log({ detail })}
+    <div className={style.container}>
       <NavBar />
       {!detail.id && (
         <div className={style.all}>
@@ -40,7 +39,6 @@ const CountryDetail = () => {
           <div className={style.card}>
             <div className={style.country}>
               <div className={style.detail}>
-                <span className={style.name}>{detail.name} una gilada </span>
                 <div className={style.items}>
                   {/* <div className={style.list}>
                     <span>Activities: </span>
@@ -52,39 +50,39 @@ const CountryDetail = () => {
                     </div>
                   </div> */}
                   <div>
-                    Continents
-                    <br />
-                    <div className={style.activities_continents}>
+                    <span className={style.name}> Nombre: {detail.name}</span>
+                    <span className={style.activities_continents}>
                       {detail.continent.map((cont) => (
-                        <div key={cont}> {cont} </div>
+                        <div key={cont}> Continents: {cont} </div>
                       ))}
-                    </div>
+                    </span>
                   </div>
                 </div>
-                <span className={style.name}>{detail.name} una gilada </span>
+
                 <div>
                   Capital: {detail.capital}
                   <br />
                   Subregion: {detail.subregion}
                 </div>
                 <div className={style.description}>
-                  <span>{`Population: ${detail.population}`} </span>
+                  <span>{`Population: ${detail.population}`}</span>
                   <br />
                   <br />
                 </div>
               </div>
-              <div>
+              <div className={style.img}>
                 <img
-                  src={detail.Flag_image}
+                  src={detail.flag_image}
                   alt="error"
-                  className={style.img}
+                  width="300"
+                  height="200"
                 />
               </div>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
